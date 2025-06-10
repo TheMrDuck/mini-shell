@@ -6,7 +6,7 @@
 /*   By: aswedan <aswedan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:09:34 by aswedan           #+#    #+#             */
-/*   Updated: 2025/06/10 17:44:23 by aswedan          ###   ########.fr       */
+/*   Updated: 2025/06/10 18:15:36 by aswedan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ typedef struct	s_tokens
 {
 	char	*token;
 	t_meta_chars type;
-	s_tokens *next;
+	struct s_tokens *next;
 
 }	t_tokens;
