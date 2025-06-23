@@ -45,7 +45,7 @@ t_tokens	*create_node(char *token, t_meta_chars token_type)
 	node = malloc(sizeof(t_tokens));
 	if (!node)
 		return (NULL);
-	node -> token = strdup(token);
+	node -> token = strdup(token); // replace it with ft version *MANDATORY*
 	node ->type = token_type;
 	node ->next = NULL;
 	return (node);

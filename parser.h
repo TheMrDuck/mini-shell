@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 
 typedef enum	s_meta_chars
 {
@@ -37,3 +38,5 @@ void	lst_add_back(t_tokens **lst, t_tokens *new_node);
 t_tokens	*create_node(char *token, t_meta_chars token_type);
 void	lst_clear(t_tokens **lst);
 int	lst_iter(t_tokens *lst);
+int syntax_validator(t_tokens *tokens);
+t_tokens	*tokenizer(char *str);
