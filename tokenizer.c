@@ -1,78 +1,63 @@
-
 #include "parser.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-char	*cutter(char *sub_word, int start, int end)
+int	single_quot_handler(char *str, int *i, t_tokens **tokens)
 {
-	char	*buffer;
-	int		i;
+	char	buffer[4096];
+	int		buff_index;
 
-	i = 0;
-	buffer = malloc(end-start + 1);
-	while (start <= end)
+	buff_index = 0;
+	buffer[0] = str[*i];
+	buff_index++;
+	(*i)++;
+	while(str[*i])
 	{
-		buffer[i] = sub_word[start];
-		i++;
-		start++;
+		buffer[buff_index] = str[*i];
+		buff_index++;
+		(*i)++;
+		if (str[*i] && str[*i] == '\'')
+			break;
 	}
-	buffer[i] = '\0';
-	return (buffer);
+	if (str[*i] != '\0' && str[*i] == '\'')
+		buffer[buff_index] = str[*i];
+	buffer[++buff_index] = '\0';
+	lst_add_back(tokens, create_node(buffer, TOKEN_WORD));
+	return (1);
 }
-
-void	add_token(t_tokens **linked_list, char *sub_word, int start,int end)
-{
-	t_tokens *last;
-	t_tokens *new;
-
-	new = malloc(sizeof(t_tokens));
-	last = malloc(sizeof(t_tokens *));
-	new->token = cutter(sub_word, start, end);
-	new->next = NULL;
-	if (linked_list)
-	{
-		if (*linked_list)
-			{
-				while((*linked_list)->next != NULL)
-					*linked_list = (*linked_list)-> next;
-				last -> next = new;
-			}
-		else
-		{
-			*linked_list = new;
-		}
-	}
-
-}
-
 t_tokens	*tokenizer(char *str)
 {
-	int	i;
-	int	start;
-	t_tokens	*linked_list;
+	t_tokens	*tokens;
+	int			i;
+	int			single_quot;
+	int			double_quot;
 
 	i = 0;
-	start = 0;
+	if (!str)
+		return (NULL);
+	tokens = NULL;
 	while (str[i])
 	{
-		if (str[i] == ' ')
+		if (str[i] == '\'')
+			single_quot = 1;
+		if (single_quot)
 			{
-				add_token(&linked_list, str, start, i - 1);
-				start = i;
+				if(!(single_quot_handler(str, &i, &tokens)))
+					return (NULL);
+				single_quot = 0;
 			}
 		i++;
 	}
-	return NULL;
+	return (tokens);
 }
 
-int main(int argc, char **argv)
+int main(int ac, char **av)
 {
-	char *input = "hello world test tokenizer";
-	t_tokens *tokens;
-
-	printf("Input string: %s\n", input);
-	tokens = tokenizer(input);
-
-	return 0;
+	t_tokens *testing = tokenizer(av[1]);
+	printf("%s\n", av[1]);
+	if (!testing) return 1;
+	int i = 0;
+	while (testing)
+	{
+		printf("%s\n", testing->token);
+		testing = testing->next;
+	}
 }

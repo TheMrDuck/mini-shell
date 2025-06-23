@@ -6,7 +6,7 @@
 /*   By: aswedan <aswedan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:09:34 by aswedan           #+#    #+#             */
-/*   Updated: 2025/06/10 18:15:36 by aswedan          ###   ########.fr       */
+/*   Updated: 2025/06/23 15:50:12 by aswedan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,9 @@ typedef struct	s_tokens
 	struct s_tokens *next;
 
 }	t_tokens;
+
+t_tokens	*last_node(t_tokens *lst);
+void	lst_add_back(t_tokens **lst, t_tokens *new_node);
+t_tokens	*create_node(char *token, t_meta_chars token_type);
+void	lst_clear(t_tokens **lst);
+int	lst_iter(t_tokens *lst);
