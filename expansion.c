@@ -1,20 +1,34 @@
 #include "parser.h"
 
-int expansion_handler(t_tokens **tokens)
+int check_env_var(char *token)
 {
-    if (tokens == NULL)
+    if (!token || !*token)
         return (0);
-    t_tokens *current = *tokens;
+    if (token[0] == '\'')
+        return (0);
+    if (strchr(token, '$') == NULL)
+        return (0);
+    return (1);
+}
+
+
+
+void    expand(t_tokens **tokens, char **envp)
+{
+    t_tokens    *current;
+
+    if (!tokens || !*tokens || !envp)
+        return;
+    current = *tokens;
     while (current)
     {
-        if (current->type == TOKEN_WORD && current->token[0] == '\'')
-            current = current->next;
-        else if (current->type == TOKEN_WORD)
+        if (current->type == TOKEN_WORD)
         {
-            if(strchr(current->token, '$'))
-                {
-                    
-                }
+            if (check_env_var(current->token))
+            {
+                expand_env_var(current, envp);
+                continue;
+            }
         }
         current = current->next;
     }
