@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aswedan <aswedan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hassende <hassende@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:09:34 by aswedan           #+#    #+#             */
-/*   Updated: 2025/06/23 15:50:12 by aswedan          ###   ########.fr       */
+/*   Updated: 2025/06/24 13:48:16 by hassende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,4 @@ void	lst_clear(t_tokens **lst);
 int	lst_iter(t_tokens *lst);
 int syntax_validator(t_tokens *tokens);
 t_tokens	*tokenizer(char *str);
+void    expand(t_tokens **tokens, char **envp);

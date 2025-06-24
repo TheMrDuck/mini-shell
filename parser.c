@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aswedan <aswedan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hassende <hassende@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:08:55 by aswedan           #+#    #+#             */
-/*   Updated: 2025/06/23 15:07:34 by aswedan          ###   ########.fr       */
+/*   Updated: 2025/06/24 13:49:15 by hassende         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_tokens	*parser(char *str, char **envp)
 {
 	t_tokens *linked_list;
-	
+
 	linked_list = tokenizer(str);
 	if (syntax_validator(linked_list) == 0)
 	{
@@ -23,13 +23,14 @@ t_tokens	*parser(char *str, char **envp)
 		lst_clear(&linked_list);
 		return (NULL);
 	}
+	expand(&linked_list, envp);
 	return (linked_list);
 }
-int main(int ac, char **av)
+int main(int ac, char **av, char **envp)
 {
-    t_tokens *testing = parser("echo 'hello world' | grep \"hello\" > output.txt |", NULL);
+    t_tokens *testing = parser("echo $USERR | grep \"hello\" > output.txt", envp);
     if (!testing) return 1;
-    
+
     while (testing)
     {
         printf("Token: %s, Type: %d\n", testing->token, testing->type);
