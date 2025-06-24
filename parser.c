@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hassende <hassende@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aswedan <aswedan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:08:55 by aswedan           #+#    #+#             */
-/*   Updated: 2025/06/24 13:49:15 by hassende         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:30:55 by aswedan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_tokens	*parser(char *str, char **envp)
 }
 int main(int ac, char **av, char **envp)
 {
-    t_tokens *testing = parser("echo $USERR | grep \"hello\" > output.txt", envp);
+    t_tokens *testing = parser("echo \" yo yo $USER hi hi \" | grep hello > output.txt", envp);
     if (!testing) return 1;
 
     while (testing)
